@@ -6,6 +6,7 @@ import "axios-progress-bar/dist/nprogress.css";
 
 function App() {
 	const API_URI = "https://yesno.wtf/api";
+	const DOCUMENT_TITLE = "Yes or No 😕";
 
 	const [data, setData] = useState({});
 	const [loader, setLoader] = useState(true);
@@ -14,6 +15,18 @@ function App() {
 		fetchData();
 		loadProgressBar();
 	}, []);
+
+	useEffect(() => {
+		if (data.answer) {
+			let emoji = "😕";
+			if (data.answer === "yes") {
+				emoji = "👍";
+			} else if (data.answer === "no") {
+				emoji = "👎";
+			}
+			document.title = emoji + " " + DOCUMENT_TITLE;
+		}
+	}, [data]);
 
 	const fetchData = () => {
 		setData({});
