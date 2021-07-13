@@ -16,13 +16,12 @@ function App() {
 
 	const fetchData = () => {
 		axios.get(API_URI).then((response) => {
-			console.log(response.data);
 			setData(response.data);
 		});
 	};
 
 	return (
-		<Container onClick={fetchData} style={{ height: "100vh" }}>
+		<Container fluid onClick={fetchData}>
 			<Row className="justify-content-center">
 				<h1>{data.answer && data.answer.toUpperCase()}</h1>
 			</Row>
