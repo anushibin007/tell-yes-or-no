@@ -16,9 +16,9 @@ function App() {
 	}, []);
 
 	const fetchData = () => {
+		setData({});
+		setLoader(true);
 		axios.get(API_URI).then((response) => {
-			setLoader(true);
-			setData({});
 			setData(response.data);
 		});
 	};
