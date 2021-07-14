@@ -3,6 +3,9 @@ import axios from "axios";
 import { loadProgressBar } from "axios-progress-bar";
 import { Container, Spinner, Row } from "react-bootstrap";
 import "axios-progress-bar/dist/nprogress.css";
+import firebase from "firebase/app";
+import "firebase/analytics";
+import "firebase/performance";
 
 function App() {
 	const API_URI = "https://yesno.wtf/api";
@@ -14,6 +17,7 @@ function App() {
 	useEffect(() => {
 		fetchData();
 		loadProgressBar();
+		initializeFirebase();
 	}, []);
 
 	useEffect(() => {
@@ -39,6 +43,25 @@ function App() {
 	const imageLoaded = () => {
 		setLoader(false);
 		console.log("image loaded");
+	};
+
+	const initializeFirebase = async () => {
+		if (!firebase.apps.length) {
+			firebase.initializeApp({
+				apiKey: "AIzaSyAYcxvEr3ZzeLSqn4fEzQuGxmBtsw0CUQY",
+				authDomain: "tell-yes-or-no.firebaseapp.com",
+				projectId: "tell-yes-or-no",
+				storageBucket: "tell-yes-or-no.appspot.com",
+				messagingSenderId: "405724850213",
+				appId: "1:405724850213:web:337c9bdb00b8e682aef7cc",
+				measurementId: "G-6CLM27Z27F",
+			});
+			firebase.analytics();
+			firebase.performance();
+		} else {
+			firebase.app();
+		}
+		return;
 	};
 
 	return (
