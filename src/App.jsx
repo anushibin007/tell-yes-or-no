@@ -12,7 +12,7 @@ function App() {
 	const MAX_YES_IMG = 9;
 	const MAX_NO_IMG = 9;
 
-	const [data, setData] = useState({});
+	const [data, setData] = useState({ showImage: false });
 
 	/**
 	 * Preload data
@@ -41,9 +41,9 @@ function App() {
 	 * Inject data
 	 */
 	const fetchData = () => {
-		setData({});
+		setData({ showImage: false });
 		const answer = getYesOrNo();
-		setData({ answer, image: getImage(answer) });
+		setData({ answer, image: getImage(answer), showImage: false });
 	};
 
 	/**
@@ -66,6 +66,10 @@ function App() {
 		} else {
 			return `${imageRoot}/no/${random.int(1, MAX_NO_IMG)}.gif`;
 		}
+	};
+
+	const handleImageLoaded = () => {
+		setData({ ...data, showImage: true });
 	};
 
 	const initializeFirebase = async () => {
@@ -94,7 +98,7 @@ function App() {
 			</Row>
 			{data.image && (
 				<Row className="justify-content-center">
-					<img id="yes-no-image" alt={`${data.answer}-image`} src={data.image} />
+					<img onLoad={handleImageLoaded} id="yes-no-image" alt={`${data.answer}-image`} src={data.image} style={{ display: data.showImage ? "" : "none" }} />
 				</Row>
 			)}
 		</Container>
