@@ -41,6 +41,7 @@ function App() {
 	 * Inject data
 	 */
 	const fetchData = () => {
+		setData({});
 		const answer = getYesOrNo();
 		setData({ answer, image: getImage(answer) });
 	};
