@@ -8,8 +8,8 @@ import "firebase/performance";
 function App() {
 	const DOCUMENT_TITLE = "Yes or No 😕";
 
-	const MAX_YES_IMG = 0;
-	const MAX_NO_IMG = 1;
+	const MAX_YES_IMG = 9;
+	const MAX_NO_IMG = 9;
 
 	const [data, setData] = useState({});
 
@@ -62,7 +62,7 @@ function App() {
 		if (yesOrNo === "yes") {
 			return `${imageRoot}/yes/${random.int(1, MAX_YES_IMG)}.gif`;
 		} else {
-			return `${imageRoot}/no/${random.int(1, MAX_YES_IMG)}.gif`;
+			return `${imageRoot}/no/${random.int(1, MAX_NO_IMG)}.gif`;
 		}
 	};
 
