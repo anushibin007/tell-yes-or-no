@@ -10,7 +10,7 @@ function App() {
 	const DOCUMENT_TITLE = "Yes or No 😕";
 
 	const MAX_YES_IMG = 9;
-	const MAX_NO_IMG = 9;
+	const MAX_NO_IMG = 20;
 
 	const [data, setData] = useState({ showImage: false });
 
