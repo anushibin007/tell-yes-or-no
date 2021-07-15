@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import random from "random";
-import { Container, Spinner, Row } from "react-bootstrap";
-import "axios-progress-bar/dist/nprogress.css";
+import { Container, Row } from "react-bootstrap";
 import firebase from "firebase/app";
 import "firebase/analytics";
 import "firebase/performance";
