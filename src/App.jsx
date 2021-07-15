@@ -1,3 +1,4 @@
+import "./App.css";
 import React, { useEffect, useState } from "react";
 import random from "random";
 import { Container, Row } from "react-bootstrap";
@@ -86,7 +87,7 @@ function App() {
 	};
 
 	return (
-		<Container fluid onClick={fetchData}>
+		<Container fluid onClick={fetchData} className="unselectable">
 			<Row className="justify-content-center">
 				<h1>{data.answer && data.answer.toUpperCase()}</h1>
 			</Row>
