@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import random from "random";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Spinner } from "react-bootstrap";
 import firebase from "firebase/app";
 import "firebase/analytics";
 import "firebase/performance";
@@ -99,6 +99,11 @@ function App() {
 			{data.image && (
 				<Row className="justify-content-center">
 					<img onLoad={handleImageLoaded} id="yes-no-image" alt={`${data.answer}-image`} src={data.image} style={{ display: data.showImage ? "" : "none" }} />
+				</Row>
+			)}
+			{!data.showImage && (
+				<Row className="justify-content-center">
+					<Spinner variant="primary" animation="border" />
 				</Row>
 			)}
 		</Container>
