@@ -98,7 +98,7 @@ function App() {
 			</Row>
 			{data.image && (
 				<Row className="justify-content-center">
-					<img onLoad={handleImageLoaded} id="yes-no-image" alt={`${data.answer}-image`} src={data.image} style={{ display: data.showImage ? "" : "none" }} />
+					<img onLoad={handleImageLoaded} id="yes-no-image" alt={`${data.answer}-image`} src={data.image} style={{ display: data.showImage ? "" : "none" }} draggable="false" />
 				</Row>
 			)}
 			{!data.showImage && (
