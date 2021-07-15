@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { loadProgressBar } from "axios-progress-bar";
+import random from "random";
 import { Container, Spinner, Row } from "react-bootstrap";
 import "axios-progress-bar/dist/nprogress.css";
 import firebase from "firebase/app";
@@ -8,18 +7,24 @@ import "firebase/analytics";
 import "firebase/performance";
 
 function App() {
-	const API_URI = "https://yesno.wtf/api";
 	const DOCUMENT_TITLE = "Yes or No 😕";
 
-	const [data, setData] = useState({});
-	const [loader, setLoader] = useState(true);
+	const MAX_YES_IMG = 0;
+	const MAX_NO_IMG = 1;
 
+	const [data, setData] = useState({});
+
+	/**
+	 * Preload data
+	 */
 	useEffect(() => {
 		fetchData();
-		loadProgressBar();
 		initializeFirebase();
 	}, []);
 
+	/**
+	 * Update page title based on answer
+	 */
 	useEffect(() => {
 		if (data.answer) {
 			let emoji = "😕";
@@ -32,17 +37,34 @@ function App() {
 		}
 	}, [data]);
 
+	/**
+	 * Inject data
+	 */
 	const fetchData = () => {
-		setData({});
-		setLoader(true);
-		axios.get(API_URI).then((response) => {
-			setData(response.data);
-		});
+		const answer = getYesOrNo();
+		setData({ answer, image: getImage(answer) });
 	};
 
-	const imageLoaded = () => {
-		setLoader(false);
-		console.log("image loaded");
+	/**
+	 * Get a random yes or no
+	 */
+	const getYesOrNo = () => {
+		if (random.boolean()) {
+			return "yes";
+		}
+		return "no";
+	};
+
+	/**
+	 * Get a random yes or no image
+	 */
+	const getImage = (yesOrNo) => {
+		const imageRoot = "/img";
+		if (yesOrNo === "yes") {
+			return `${imageRoot}/yes/${random.int(1, MAX_YES_IMG)}.gif`;
+		} else {
+			return `${imageRoot}/no/${random.int(1, MAX_YES_IMG)}.gif`;
+		}
 	};
 
 	const initializeFirebase = async () => {
@@ -71,12 +93,7 @@ function App() {
 			</Row>
 			{data.image && (
 				<Row className="justify-content-center">
-					<img onLoad={imageLoaded} id="yes-no-image" alt={`${data.answer}-image`} src={data.image} />
-				</Row>
-			)}
-			{loader && (
-				<Row className="justify-content-center">
-					<Spinner animation="grow" variant="primary" />
+					<img id="yes-no-image" alt={`${data.answer}-image`} src={data.image} />
 				</Row>
 			)}
 		</Container>
